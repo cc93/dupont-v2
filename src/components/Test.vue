@@ -1,5 +1,5 @@
 <template>
-    <div class="test">
+    <div class="test" >
         <!-- page1 -->
         <div class="page1" v-show="currentPage===1">
             <img src="../../img/00_bj.jpg" alt="" class="bg">
@@ -61,7 +61,7 @@
                     v-on:enter="p3CapyEnter"
                     v-on:leave="p3CapyLeave"
             >
-                <div class="slogan-box pa opa" v-if="p3.capy===1" key="capy1">
+                <div class="slogan-box pa opa" v-if="p3.capy===1" key="capy1" @click="clickSlogan">
                     <img src="../../img/02_capy01.png" alt="" class="p3-capy1 pa">
                 </div>
                 <img v-if="p3.capy===2" key="capy2" src="../../img/02_capy03.png" alt="" class="p3-capy3 pa opa">
@@ -164,7 +164,9 @@
                     duration = 1200;
                 }
                 Velocity(el, {opacity: 1}, duration, () => {
-                    this.p3.capy++;
+                    if(this.p3.capy !== 1){
+                        this.p3.capy++;
+                    }
                     done();
                 });
             },
@@ -176,18 +178,26 @@
                     done();
                 });
             },
+            clickSlogan(){
+                this['p' + this.currentPage]['capy']++;
+            }
         }
 
     }
 </script>
 <style>
-    .bg {
+    .test{
         width: 100%;
         height: 100%;
-        left: 0;
-        top: 0;
-        position: absolute;
-        z-index: -10;
+        position: relative;
+    }
+
+    .bg {
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*left: 0;*/
+        /*top: 0;*/
+        /*position: absolute;*/
     }
 
     .p1-capy1 {
