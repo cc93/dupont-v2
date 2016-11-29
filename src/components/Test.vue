@@ -1,7 +1,10 @@
 <template>
     <div class="test">
-        <page1 v-show="currentPage===1" @next-page="onNextPage"></page1>
-        <page2 v-show="currentPage===2" @next-page="onNextPage"></page2>
+        <keep-alive>
+            <!-- 非活动组件将被缓存！ -->
+            <component :is="currentPageView" @next-page="onNextPage">
+            </component>
+        </keep-alive>
     </div>
 </template>
 <style>
@@ -9,20 +12,26 @@
 </style>
 <script>
     import Page1 from './Page1.vue'
+    import Page2 from './Page2.vue'
     export default {
         components: {
-            'page1': Page1
+            'page1': Page1,
+            'page2': Page2
         },
         data(){
             return {
-                currentPage:0
+                currentPageView: 'page1',
+                currentPage: 1
             }
         },
         mounted(){
         },
-        methods:{
+        methods: {
             onNextPage(mes){
+                console.log('mes = ' + mes);
+                this.currentPage = mes;
                 this.currentPage++;
+                this.currentPageView = 'page' + this.currentPage;
             }
         }
 

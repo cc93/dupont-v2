@@ -20,13 +20,13 @@
                 v-on:enter="doorEnter"
                 v-on:leave="doorLeave"
         >
-            <img v-if="capy===3" key="door" src="../../img/00_door.png" alt="" class="p1-door pa opa">
+            <img v-show="capy===3" key="door" src="../../img/00_door.png" alt="" class="p1-door pa opa">
         </transition>
         <prompt
                 class="p1-prompt pa"
-                v-if="showPrompt"
-                @click.native="onClick">
-
+                v-show="showPrompt"
+                @click.native="onClick"
+        >
         </prompt>
     </div>
 </template>
@@ -42,6 +42,11 @@
                 capy: 0,
                 showPrompt:false
             }
+        },
+        mounted(){
+        },
+        activated(){
+            this.capy=1;
         },
         methods: {
             capyEnter: function (el, done) {
@@ -73,16 +78,10 @@
                 Velocity(el, {opacity: 0, translateY: '-30px'}, 500, done);
             },
             onClick(e){
-                console.log('onclick,el=' + e.target);
                 //通知下一页，传参:这一页页码
                 this.$emit('next-page',1);
             }
 
-        },
-        mounted(){
-            setTimeout(() => {
-                this.capy = 1;
-            }, 1000)
         },
 
     }
