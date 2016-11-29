@@ -1,12 +1,18 @@
 <template>
-    <div class="prompt pr" >
-        <div class="prompt-1 pa"></div>
-        <div class="prompt-2 pa" ref="prompt2"></div>
+    <div class="prompt pr">
+        <div class="prompt-1 pa" :style="{background: color}"></div>
+        <div class="prompt-2 pa" ref="prompt2" :style="{background: color}"></div>
     </div>
 </template>
 <script>
     import CC from '../../js/ccjs.min'
     export default {
+        props: {
+            color: {
+                type: String,
+                default: '#cccdd0'
+            }
+        },
         mounted(){
             CC.Css.smartCssAnimation('promptInflate', [{
                 width: 20,
