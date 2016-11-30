@@ -1,5 +1,5 @@
 <template>
-    <div class="test" >
+    <div class="test">
         <!-- page1 -->
         <div class="page1" v-show="currentPage===1">
             <img src="../../img/00_bj.jpg" alt="" class="bg">
@@ -57,6 +57,7 @@
             <img src="../../img/bj05.png" alt="" class="bg">
             <transition
                     name="p3-capy"
+                    mode="out-in"
                     v-bind:css="false"
                     v-on:enter="p3CapyEnter"
                     v-on:leave="p3CapyLeave"
@@ -75,6 +76,103 @@
             </prompt>
         </div>
         <!-- /page3 -->
+        <!--page4-->
+        <div class="page4" v-show="currentPage===4">
+            <img src="../../img/bj05.png" alt="" class="bg">
+            <transition
+                    name="p4-sofa"
+                    v-bind:css="false"
+                    v-on:enter="p4SofaEnter"
+            >
+                <img v-if="p4.capy>=1" key="capy1" src="../../img/sofa.png" alt="" class="sofa pa">
+            </transition>
+            <transition
+                    name="p4-capy"
+                    mode="out-in"
+                    v-bind:css="false"
+                    v-on:enter="p4CapyEnter"
+                    v-on:leave="p4CapyLeave"
+            >
+                <div class="slogan-box pa opa" v-if="p4.capy===2" key="capy2" @click="clickSlogan">
+                    <img src="../../img/03_capy01.png" alt="" class="p3-capy1 pa">
+                </div>
+                <img v-if="p4.capy===3" key="capy3" src="../../img/03_capy02.png" alt="" class="p4-capy2 pa opa">
+            </transition>
+            <prompt
+                    class="p4-prompt pa"
+                    v-show="p4.prompt"
+                    @click.native="onClickPrompt"
+                    color="#fc3030"
+            >
+            </prompt>
+        </div>
+        <!--/page4-->
+        <!-- page5 -->
+        <div class="page5" v-show="currentPage===5">
+            <img src="../../img/bj05.png" alt="" class="bg">
+            <img src="../../img/sofa.png" alt="" class="sofa pa">
+            <transition
+                    name="p5-curtain"
+                    v-bind:css="false"
+                    v-on:enter="p5CurtainEnter"
+            >
+                <img v-if="p5.capy>=1" src="../../img/curtain.png" alt="" class="p5-curtain pa">
+            </transition>
+            <transition
+                    name="p5-curtain01"
+                    v-bind:css="false"
+                    v-on:enter="p5CurtainEnter"
+            >
+                <img v-if="p5.capy>=2" src="../../img/curtain01.png" alt="" class="p5-curtain01 pa opa">
+            </transition>
+            <transition
+                    name="p5-draw"
+                    v-bind:css="false"
+                    v-on:enter="p5CurtainEnter"
+            >
+                <img v-if="p5.capy>=3" src="../../img/draw.png" alt="" class="p5-draw pa">
+            </transition>
+            <transition
+                    name="p5-table"
+                    v-bind:css="false"
+                    v-on:enter="p5CurtainEnter"
+            >
+                <img v-if="p5.capy>=4" src="../../img/table.png" alt="" class="p5-table pa">
+            </transition>
+            <transition
+                    name="p5-capy"
+                    mode="out-in"
+                    v-bind:css="false"
+                    v-on:enter="p5CapyEnter"
+                    v-on:leave="p5CapyLeave"
+            >
+                <div class="slogan-box pa opa" v-if="p5.capy===5" key="capy5" @click="clickSlogan">
+                    <img src="../../img/04_capy01.png" alt="" class="p3-capy1 pa">
+                </div>
+                <img v-if="p5.capy===6" key="capy5" src="../../img/04_capy02.png" alt="" class="p4-capy2 pa opa">
+            </transition>
+            <prompt
+                    class="p5-prompt pa"
+                    v-show="p5.prompt"
+                    @click.native="onClickPrompt"
+                    color="#fc3030"
+            >
+            </prompt>
+        </div>
+        <!-- /page5 -->
+        <!-- /age6 -->
+        <div class="page6" v-show="currentPage===6">
+            <img src="../../img/08_bj.jpg" alt="" class="bg">
+            <img src="../../img/08_logo.png" alt="" class="p6-logo pa">
+            <transition
+                    name="p6-photo"
+                    v-bind:css="false"
+                    v-on:enter="p6PhotoEnter"
+            >
+                <img v-if="p6.capy>=1" src="../../img/08_photo.png" alt="" class="p6-photo pa">
+            </transition>
+        </div>
+        <!-- /page6 -->
     </div>
 </template>
 <script>
@@ -90,6 +188,10 @@
                 p1: {capy: 0, prompt: false, door: false},
                 p2: {capy: 0, prompt: false},
                 p3: {capy: 0, prompt: false},
+                p4: {capy: 0, prompt: false},
+                p5: {capy: 0, prompt: false},
+                p6: {capy: 0, prompt: false},
+
             }
         },
         watch: {
@@ -156,7 +258,7 @@
                 Velocity(el, {opacity: 0, translateY: '30px'}, 0);
                 let delay = 0;
                 if (this.p3.capy === 2) {
-                    delay = 500;
+                    delay = 300;
                 }
                 Velocity(el, {opacity: 1, translateY: '0'}, {duration: 500, delay: delay});
                 let duration = 500;
@@ -164,7 +266,7 @@
                     duration = 1200;
                 }
                 Velocity(el, {opacity: 1}, duration, () => {
-                    if(this.p3.capy !== 1){
+                    if (this.p3.capy !== 1) {
                         this.p3.capy++;
                     }
                     done();
@@ -172,7 +274,7 @@
             },
             p3CapyLeave(el, done){
                 Velocity(el, {opacity: 0, translateY: '-30px'}, 500, () => {
-                    if(this.p3.capy===3){
+                    if (this.p3.capy === 3) {
                         this.p3.prompt = true;
                     }
                     done();
@@ -180,18 +282,96 @@
             },
             clickSlogan(){
                 this['p' + this.currentPage]['capy']++;
+            },
+            p4CapyEnter(el, done){
+                Velocity(el, {opacity: 0, translateY: '30px'}, 0);
+                let delay = 0;
+                if (this.p4.capy === 3) {
+//                    duration = 1200;
+                    delay = 300;
+                }
+                Velocity(el, {opacity: 1, translateY: '0'}, {duration: 500, delay: delay});
+                let duration = 500;
+                if (this.p4.capy === 2) {
+//                    duration = 1200;
+                    duration = 0;
+                }
+                Velocity(el, {opacity: 1}, duration, () => {
+                    if (this.p4.capy !== 2) {
+                        this.p4.capy++;
+                    }
+                    done();
+                });
+            },
+            p4CapyLeave(el, done){
+                Velocity(el, {opacity: 0, translateY: '-30px'}, 500, () => {
+                    if (this.p4.capy === 4) {
+                        this.p4.prompt = true;
+                    }
+                    done();
+                });
+            },
+            p4SofaEnter(el, done){
+                Velocity(el, {opacity: 0, translateY: '30px'}, 0);
+                Velocity(el, {opacity: 1, translateY: '0'}, {duration: 500});
+                Velocity(el, {opacity: 1}, 500, () => {
+                    this.p4.capy++;
+                    done();
+                });
+            },
+            p5CurtainEnter(el, done){
+                Velocity(el, {opacity: 0, translateY: '30px'}, 0);
+                Velocity(el, {opacity: 1, translateY: '0'}, {duration: 400});
+                Velocity(el, {opacity: 1}, 100, () => {
+                    this.p5.capy++;
+                    done();
+                });
+            },
+            p5CapyEnter(el, done){
+                Velocity(el, {opacity: 0, translateY: '30px'}, 0);
+                let delay = 0;
+                if (this.p5.capy === 6) {
+                    delay = 300;
+                }
+                Velocity(el, {opacity: 1, translateY: '0'}, {duration: 500, delay: delay});
+                let duration = 500;
+                if (this.p5.capy === 5) {
+//                    duration = 1200;
+                    duration = 0;
+                }
+                Velocity(el, {opacity: 1}, duration, () => {
+                    if (this.p5.capy !== 5) {
+                        this.p5.capy++;
+                    }
+                    done();
+                });
+            },
+            p5CapyLeave(el, done){
+                Velocity(el, {opacity: 0, translateY: '-30px'}, 500, () => {
+                    if (this.p5.capy === 7) {
+                        this.p5.prompt = true;
+                    }
+                    done();
+                });
+            },
+            p6PhotoEnter(el, done){
+                let duration = 700;
+                //initial state
+                Velocity(el, {left: 1344 / 2, top: 750 / 2, scale: 3.05, rotate: 4}, 0);
+                //end state
+                Velocity(el, {left: 56, scale: 1}, {duration: duration, easing: 'linear', queue: false});
+                Velocity(el, {top: 273, rotate: 4}, {duration: duration,easing: 'easeOutBack', queue: false,complete:done});
             }
-        }
 
+        }
     }
 </script>
 <style>
-    .test{
+    .test {
         width: 100%;
         height: 100%;
         position: relative;
     }
-
     .bg {
         /*width: 100%;*/
         /*height: 100%;*/
@@ -267,8 +447,58 @@
         bottom: 70px;
     }
 
-    .p3-prompt{
+    .p3-prompt {
         left: 428px;
         top: 437px;
+    }
+
+    .sofa {
+        left: 160px;
+        bottom: 75px;
+    }
+
+    .p4-capy2 {
+        left: 368px;
+        bottom: 70px;
+    }
+
+    .p4-prompt {
+        right: 123px;
+        bottom: 306px;
+    }
+
+    .p5-curtain {
+        right: 56px;
+        bottom: 105px;
+    }
+
+    .p5-curtain01 {
+        left: 540px;
+        bottom: 344px;
+    }
+
+    .p5-draw {
+        left: 282px;
+        top: 81px;
+    }
+
+    .p5-table {
+        left: 186px;
+        bottom: 23px;
+    }
+
+    .p5-prompt {
+        right: 461px;
+        bottom: 220px;
+    }
+
+    .p6-logo {
+        left: 100px;
+        top: 100px;
+    }
+
+    .p6-photo {
+        left: 66px;
+        top: 172px;
     }
 </style>
