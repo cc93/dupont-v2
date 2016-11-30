@@ -1,7 +1,7 @@
 <template>
     <div class="test">
         <!-- page1 -->
-        <div class="page1" v-show="currentPage===1">
+        <div id="page1" class="page" v-show="currentPage===1">
             <img src="../../img/00_bj.jpg" alt="" class="bg">
             <transition
                     name="p1-capy"
@@ -24,16 +24,17 @@
             >
                 <img v-show="p1.door" key="door" src="../../img/00_door.png" alt="" class="p1-door pa opa">
             </transition>
-            <prompt
-                    class="p1-prompt pa"
-                    v-show="p1.prompt"
-                    @click.native="onClickPrompt"
+            <div class="prompt p1-prompt pa"
+                 v-show="p1.prompt"
+                 @click="onClickPrompt"
             >
-            </prompt>
+                <div class="prompt-1 pa"></div>
+                <div class="prompt-2 pa"></div>
+            </div>
         </div>
         <!-- /page1 -->
         <!-- page2 -->
-        <div class="page2" v-show="currentPage===2">
+        <div id="page2" class="page" v-show="currentPage===2">
             <img src="../../img/bj01.jpg" alt="" class="bg">
             <img src="../../img/01_lamp.png" alt="" class="p2-lamp pa">
             <transition
@@ -44,16 +45,17 @@
             >
                 <img v-show="p2.capy===1" src="../../img/01_capy01.png" alt="" class="p2-capy1 pa">
             </transition>
-            <prompt
-                    v-show="p2.prompt"
-                    @click.native="onClickPrompt"
-                    class="p2-prompt pa"
+            <div class="prompt p2-prompt pa"
+                 v-show="p2.prompt"
+                 @click="onClickPrompt"
             >
-            </prompt>
+                <div class="prompt-1 pa"></div>
+                <div class="prompt-2 pa"></div>
+            </div>
         </div>
         <!-- /page2 -->
         <!-- page3 -->
-        <div class="page3" v-show="currentPage===3">
+        <div id="page3" class="page" v-show="currentPage===3">
             <img src="../../img/bj05.png" alt="" class="bg">
             <transition
                     name="p3-capy"
@@ -67,17 +69,17 @@
                 </div>
                 <img v-if="p3.capy===2" key="capy2" src="../../img/02_capy03.png" alt="" class="p3-capy3 pa opa">
             </transition>
-            <prompt
-                    class="p3-prompt pa"
-                    v-show="p3.prompt"
-                    @click.native="onClickPrompt"
-                    color="#fc3030"
+            <div class="prompt p3-prompt pa"
+                 v-show="p3.prompt"
+                 @click="onClickPrompt"
             >
-            </prompt>
+                <div class="prompt-1 pa" style="background: #fc3030"></div>
+                <div class="prompt-2 pa" style="background: #fc3030"></div>
+            </div>
         </div>
         <!-- /page3 -->
         <!--page4-->
-        <div class="page4" v-show="currentPage===4">
+        <div id="page4" class="page" v-show="currentPage===4">
             <img src="../../img/bj05.png" alt="" class="bg">
             <transition
                     name="p4-sofa"
@@ -98,17 +100,17 @@
                 </div>
                 <img v-if="p4.capy===3" key="capy3" src="../../img/03_capy02.png" alt="" class="p4-capy2 pa opa">
             </transition>
-            <prompt
-                    class="p4-prompt pa"
-                    v-show="p4.prompt"
-                    @click.native="onClickPrompt"
-                    color="#fc3030"
+            <div class="prompt p4-prompt pa"
+                 v-show="p4.prompt"
+                 @click="onClickPrompt"
             >
-            </prompt>
+                <div class="prompt-1 pa" style="background: #fc3030"></div>
+                <div class="prompt-2 pa" style="background: #fc3030"></div>
+            </div>
         </div>
         <!--/page4-->
         <!-- page5 -->
-        <div class="page5" v-show="currentPage===5">
+        <div id="page5" class="page" v-show="currentPage===5">
             <img src="../../img/bj05.png" alt="" class="bg">
             <img src="../../img/sofa.png" alt="" class="sofa pa">
             <transition
@@ -151,17 +153,17 @@
                 </div>
                 <img v-if="p5.capy===6" key="capy5" src="../../img/04_capy02.png" alt="" class="p4-capy2 pa opa">
             </transition>
-            <prompt
-                    class="p5-prompt pa"
-                    v-show="p5.prompt"
-                    @click.native="onClickPrompt"
-                    color="#fc3030"
-            >
-            </prompt>
+            <div class="prompt p5-prompt pa"
+                 v-show="p5.prompt"
+                 @click="onClickPrompt"
+            >``
+                <div class="prompt-1 pa" style="background: #fc3030"></div>
+                <div class="prompt-2 pa" style="background: #fc3030"></div>
+            </div>
         </div>
         <!-- /page5 -->
         <!-- /age6 -->
-        <div class="page6" v-show="currentPage===6">
+        <div id="page6" class="page" v-show="currentPage===6">
             <img src="../../img/08_bj.jpg" alt="" class="bg">
             <img src="../../img/08_logo.png" alt="" class="p6-logo pa">
             <transition
@@ -177,11 +179,8 @@
 </template>
 <script>
     import Velocity from '../../js/velocity'
-    import Prompt from './Prompt.vue'
     export default {
-        components: {
-            'prompt': Prompt
-        },
+        components: {},
         data(){
             return {
                 currentPage: 0,
@@ -222,6 +221,8 @@
                     done();
                 });
             },
+
+
             p1CapyLeave: function (el, done) {
                 Velocity(el, {opacity: 0, translateY: '-30px'}, 500, done);
             },
@@ -283,6 +284,8 @@
             clickSlogan(){
                 this['p' + this.currentPage]['capy']++;
             },
+
+
             p4CapyEnter(el, done){
                 Velocity(el, {opacity: 0, translateY: '30px'}, 0);
                 let delay = 0;
@@ -327,6 +330,8 @@
                     done();
                 });
             },
+
+
             p5CapyEnter(el, done){
                 Velocity(el, {opacity: 0, translateY: '30px'}, 0);
                 let delay = 0;
@@ -355,14 +360,24 @@
                 });
             },
             p6PhotoEnter(el, done){
-                let duration = 700;
+                let duration = 900;
                 //initial state
-                Velocity(el, {left: 1344 / 2, top: 750 / 2, scale: 3.05, rotate: 4}, 0);
-                //end state
-                Velocity(el, {left: 56, scale: 1}, {duration: duration, easing: 'linear', queue: false});
-                Velocity(el, {top: 273, rotate: 4}, {duration: duration,easing: 'easeOutBack', queue: false,complete:done});
-            }
+                Velocity(el, {left: 0, top: 0, scale: 3.05, rotateZ: 4}, 0);
+                Velocity(el, {left: 0, top: 0, scale: 2.5, rotateZ: 4}, {
+                    duration: 200, complete: () => {
+                        //end state
+                        Velocity(el, {left: 56, scale: 1}, {duration: duration, easing: 'linear', queue: false});
+                        Velocity(el, {top: 273, rotateZ: 0}, {
+                            duration: duration,
+                            easing: [1, 0, .5, 1.99],
+                            queue: false,
+                            complete: done
+                        });
+                    }
+                });
 
+
+            }
         }
     }
 </script>
@@ -372,9 +387,11 @@
         height: 100%;
         position: relative;
     }
+
+    .page {
+    }
+
     .bg {
-        /*width: 100%;*/
-        /*height: 100%;*/
         /*left: 0;*/
         /*top: 0;*/
         /*position: absolute;*/
@@ -405,6 +422,75 @@
     .p1-door {
         left: 768px;
         top: 115px;
+    }
+
+    .prompt {
+        width: 80px;
+        height: 80px;
+    }
+
+    .prompt-1 {
+        width: 20px;
+        height: 20px;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        border-radius: 50%;
+        background: #cccdd0;
+        opacity: 0.9;
+    }
+
+    .prompt-2 {
+        width: 20px;
+        height: 20px;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        border-radius: 50%;
+        background: #cccdd0;
+        -webkit-animation: promptInflate 1.2s linear infinite;
+        animation: promptInflate 1.2s linear infinite;
+    }
+
+    @-webkit-keyframes promptInflate {
+        0% {
+            width: 20px;
+            height: 20px;
+            opacity: 0.9;
+        }
+        75% {
+            width: 60px;
+            height: 60px;
+            opacity: 0.1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes promptInflate {
+        0% {
+            width: 20px;
+            height: 20px;
+            opacity: 0.9;
+        }
+        75% {
+            width: 60px;
+            height: 60px;
+            opacity: 0.1;
+        }
+        100% {
+            opacity: 0;
+
+        }
     }
 
     .p1-prompt {
